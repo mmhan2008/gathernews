@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>规则配置</title>
+		<style type="text/css">
+			#body {
+				width: 80%;
+				text-align: center;
+				margin: 0 auto;
+			}
+			.yulan {
+				width: auto;
+				height: 600px;
+                text-align: left;
+				border: 1px solid black ;
+				margin: 0 auto;
+				overflow-y:auto; 
+				overflow-x:auto;
+			}
+			.model {
+				padding: 10px;
+			}
+			.rule {
+				padding: 10px;
+			}
+			.on-off {
+				padding: 10px;
+			}
+			.bt input {
+				margin: 10px 20px;
+			}
+            .rule select{
+                width: 150px;
+            }
+            .rule.y div{
+                display: inline-block;
+            }
+            .rule.n div{
+                display: inline-block;
+            }
+            .jieguo{
+                position: absolute;
+                top: 35%;
+                transform: translateY(-50%);
+                margin-left: 38%;
+                color: red;
+            }
+		</style>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/new2.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="body">
+			<div class="model">
+				<label>模版选择：</label>
+				<select>
+				    <option value ="UTF-8" selected>UTF-8</option>
+				    <option value ="GB2312">GB2312</option>
+				    <option value="GBK">GBK</option>
+                    <option value ="UTF8-COOKIE">UTF8-COOKIE</option>
+                    <option value ="GB2312-COOKIE">GB2312-COOKIE</option>
+                    <option value="GBK-COOKIE">GBK-COOKIE</option>
+                    <option value="PY-DEFAULT">PY-LIB1</option>
+                    <option value="PY-LIB2">PY-LIB2</option>
+                    <option value="PY-LIB3">PY-LIB3</option>
+				</select>
+			</div>
+			<div class="yulan">
+                <ul style="list-style:none;"></ul>
+			</div>
+			<div class="rule">
+                <h4>规则</h4>
+                <div class="rule y">
+                    <label>包含：</label>
+                    <div class="ys1"></div>
+                    <label>and</label>
+                    <div class="ys2"></div>
+                    <label>and</label>
+                    <input type="text" class="ys3" value="这里可以输入规则" />
+                </div>
+                <div class="rule n">
+                    <label>不包含：</label>
+                    <div class="ns1"></div>
+                    <label>and</label>
+                    <div class="ns2"></div>
+                    <label>and</label>
+                    <div class="ns3"></div>
+                </div>
+                <div class="on-off">
+                    <label>任务开关：</label>
+                    <label>启用</label>
+                    <input type="radio" name="" value="启用" checked/>
+
+                    <label>停用</label>
+                    <input type="radio" name="" value="停用" />
+                </div>
+			</div>
+			<div class="bt">
+				<input type="button" name="return" value="返回" />
+				<input type="button" name="reset" value="重置" />
+				<input type="button" name="confirm" value="确认" />
+			</div>
+		</div>
+	</body>
+</html>

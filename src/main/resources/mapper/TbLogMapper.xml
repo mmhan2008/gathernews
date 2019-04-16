@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cnstock.mapper.TbLogMapper" >
+  <resultMap id="BaseResultMap" type="com.cnstock.entity.TbLog" >
+    <id column="logId" property="logId" jdbcType="INTEGER" />
+    <result column="jobId" property="jobId" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="newLink" property="newLink" jdbcType="INTEGER" />
+    <result column="linkCount" property="linkCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="var1" property="var1" jdbcType="VARCHAR" />
+    <result column="var2" property="var2" jdbcType="VARCHAR" />
+    <result column="var3" property="var3" jdbcType="VARCHAR" />
+    <result column="var4" property="var4" jdbcType="VARCHAR" />
+    <result column="var5" property="var5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    logId, jobId, updateTime, newLink, linkCount, status, var1, var2, var3, var4, var5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cnstock.entity.TbLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Tb_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Tb_log
+    where logId = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Tb_log
+    where logId = #{logId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cnstock.entity.TbLogExample" >
+    delete from Tb_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cnstock.entity.TbLog" >
+    insert into Tb_log (logId, jobId, updateTime, 
+      newLink, linkCount, status, 
+      var1, var2, var3, var4, 
+      var5)
+    values (#{logId,jdbcType=INTEGER}, #{jobId,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{newLink,jdbcType=INTEGER}, #{linkCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR}, #{var3,jdbcType=VARCHAR}, #{var4,jdbcType=VARCHAR}, 
+      #{var5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cnstock.entity.TbLog" >
+    insert into Tb_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        logId,
+      </if>
+      <if test="jobId != null" >
+        jobId,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="newLink != null" >
+        newLink,
+      </if>
+      <if test="linkCount != null" >
+        linkCount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="var1 != null" >
+        var1,
+      </if>
+      <if test="var2 != null" >
+        var2,
+      </if>
+      <if test="var3 != null" >
+        var3,
+      </if>
+      <if test="var4 != null" >
+        var4,
+      </if>
+      <if test="var5 != null" >
+        var5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="newLink != null" >
+        #{newLink,jdbcType=INTEGER},
+      </if>
+      <if test="linkCount != null" >
+        #{linkCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="var3 != null" >
+        #{var3,jdbcType=VARCHAR},
+      </if>
+      <if test="var4 != null" >
+        #{var4,jdbcType=VARCHAR},
+      </if>
+      <if test="var5 != null" >
+        #{var5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cnstock.entity.TbLogExample" resultType="java.lang.Integer" >
+    select count(*) from Tb_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Tb_log
+    <set >
+      <if test="record.logId != null" >
+        logId = #{record.logId,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobId != null" >
+        jobId = #{record.jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        updateTime = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newLink != null" >
+        newLink = #{record.newLink,jdbcType=INTEGER},
+      </if>
+      <if test="record.linkCount != null" >
+        linkCount = #{record.linkCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var3 != null" >
+        var3 = #{record.var3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var4 != null" >
+        var4 = #{record.var4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var5 != null" >
+        var5 = #{record.var5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Tb_log
+    set logId = #{record.logId,jdbcType=INTEGER},
+      jobId = #{record.jobId,jdbcType=VARCHAR},
+      updateTime = #{record.updateTime,jdbcType=VARCHAR},
+      newLink = #{record.newLink,jdbcType=INTEGER},
+      linkCount = #{record.linkCount,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      var1 = #{record.var1,jdbcType=VARCHAR},
+      var2 = #{record.var2,jdbcType=VARCHAR},
+      var3 = #{record.var3,jdbcType=VARCHAR},
+      var4 = #{record.var4,jdbcType=VARCHAR},
+      var5 = #{record.var5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cnstock.entity.TbLog" >
+    update Tb_log
+    <set >
+      <if test="jobId != null" >
+        jobId = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="newLink != null" >
+        newLink = #{newLink,jdbcType=INTEGER},
+      </if>
+      <if test="linkCount != null" >
+        linkCount = #{linkCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var2 = #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="var3 != null" >
+        var3 = #{var3,jdbcType=VARCHAR},
+      </if>
+      <if test="var4 != null" >
+        var4 = #{var4,jdbcType=VARCHAR},
+      </if>
+      <if test="var5 != null" >
+        var5 = #{var5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logId = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cnstock.entity.TbLog" >
+    update Tb_log
+    set jobId = #{jobId,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR},
+      newLink = #{newLink,jdbcType=INTEGER},
+      linkCount = #{linkCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      var1 = #{var1,jdbcType=VARCHAR},
+      var2 = #{var2,jdbcType=VARCHAR},
+      var3 = #{var3,jdbcType=VARCHAR},
+      var4 = #{var4,jdbcType=VARCHAR},
+      var5 = #{var5,jdbcType=VARCHAR}
+    where logId = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

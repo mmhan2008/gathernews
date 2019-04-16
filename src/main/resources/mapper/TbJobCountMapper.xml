@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cnstock.mapper.TbJobCountMapper" >
+  <resultMap id="BaseResultMap" type="com.cnstock.entity.TbJobCount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="jobId" property="jobId" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="dateCount" property="dateCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, jobId, date, dateCount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cnstock.entity.TbJobCountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Tb_job_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from Tb_job_count
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Tb_job_count
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cnstock.entity.TbJobCountExample" >
+    delete from Tb_job_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cnstock.entity.TbJobCount" >
+    insert into Tb_job_count (id, jobId, date, 
+      dateCount)
+    values (#{id,jdbcType=INTEGER}, #{jobId,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{dateCount,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertForeach" parameterType="java.util.List">
+    insert into Tb_job_count (id,jobId, date,
+      dateCount)
+    values
+    <foreach collection="list" item="ls" open="" separator="," close="">
+        (#{ls.id,jdbcType=INTEGER},#{ls.jobId, jdbcType=VARCHAR},#{ls.date,jdbcType=VARCHAR}, #{ls.dateCount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.cnstock.entity.TbJobCount" >
+    insert into Tb_job_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jobId != null" >
+        jobId,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="dateCount != null" >
+        dateCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCount != null" >
+        #{dateCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cnstock.entity.TbJobCountExample" resultType="java.lang.Integer" >
+    select count(*) from Tb_job_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Tb_job_count
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobId != null" >
+        jobId = #{record.jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateCount != null" >
+        dateCount = #{record.dateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Tb_job_count
+    set id = #{record.id,jdbcType=INTEGER},
+      jobId = #{record.jobId,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      dateCount = #{record.dateCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cnstock.entity.TbJobCount" >
+    update Tb_job_count
+    <set >
+      <if test="jobId != null" >
+        jobId = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCount != null" >
+        dateCount = #{dateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cnstock.entity.TbJobCount" >
+    update Tb_job_count
+    set jobId = #{jobId,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      dateCount = #{dateCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

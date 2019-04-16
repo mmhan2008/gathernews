@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<select>
+    <option value=""></option>
+    <option th:each="keyWords:${keyWords}" th:value="${keyWords}" th:text="${keyWords}"></option>
+</select>
+</html>

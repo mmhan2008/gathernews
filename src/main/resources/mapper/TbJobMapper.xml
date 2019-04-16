@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cnstock.mapper.TbJobMapper" >
+    <resultMap id="BaseResultMap" type="com.cnstock.entity.TbJob" >
+        <id column="jobId" property="jobId" jdbcType="VARCHAR" />
+        <result column="jobName" property="jobName" jdbcType="VARCHAR" />
+        <result column="jobUrl" property="jobUrl" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="jobModel" property="jobModel" jdbcType="VARCHAR" />
+        <result column="hashCode" property="hashCode" jdbcType="VARCHAR" />
+        <result column="errorCount" property="errorCount" jdbcType="INTEGER" />
+        <result column="isEnable" property="isEnable" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="droneId" property="droneId" jdbcType="VARCHAR" />
+        <result column="jobOwner" property="jobOwner" jdbcType="VARCHAR" />
+        <result column="Include1" property="include1" jdbcType="VARCHAR" />
+        <result column="Include2" property="include2" jdbcType="VARCHAR" />
+        <result column="Include3" property="include3" jdbcType="VARCHAR" />
+        <result column="IsInclude1" property="isInclude1" jdbcType="VARCHAR" />
+        <result column="IsInclude2" property="isInclude2" jdbcType="VARCHAR" />
+        <result column="IsInclude3" property="isInclude3" jdbcType="VARCHAR" />
+        <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+        <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+    jobId, jobName, jobUrl, type, jobModel, hashCode, errorCount, isEnable, status, droneId,
+    jobOwner, Include1, Include2, Include3, IsInclude1, IsInclude2, IsInclude3, createTime,
+    updateTime
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cnstock.entity.TbJobExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from Tb_job
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.cnstock.entity.TbJob">
+        select
+        <include refid="Base_Column_List"/>
+        from Tb_job
+        <where>
+            <if test="jobName != null">
+                and jobName like concat('%',#{jobName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="jobUrl != null">
+                and jobUrl like concat('%',#{jobUrl,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="isEnable != null">
+                and isEnable = #{isEnable,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null and endTime == null">
+                and createTime &gt;= #{startTime,jdbcType=VARCHAR}
+            </if>
+            <if test="endTime != null and startTime == null">
+                and createTime &lt;= #{endTime,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null and endTime != null" >
+                and createTime between  #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from Tb_job
+        where jobId = #{jobId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Tb_job
+    where jobId = #{jobId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.cnstock.entity.TbJobExample" >
+        delete from Tb_job
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.cnstock.entity.TbJob" >
+    insert into Tb_job (jobId, jobName, jobUrl,
+      type, jobModel, hashCode,
+      errorCount, isEnable, status,
+      droneId, jobOwner, Include1,
+      Include2, Include3, IsInclude1,
+      IsInclude2, IsInclude3, createTime,
+      updateTime)
+    values (#{jobId,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{jobUrl,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR}, #{jobModel,jdbcType=VARCHAR}, #{hashCode,jdbcType=VARCHAR},
+      #{errorCount,jdbcType=INTEGER}, #{isEnable,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{droneId,jdbcType=VARCHAR}, #{jobOwner,jdbcType=VARCHAR}, #{include1,jdbcType=VARCHAR},
+      #{include2,jdbcType=VARCHAR}, #{include3,jdbcType=VARCHAR}, #{isInclude1,jdbcType=VARCHAR},
+      #{isInclude2,jdbcType=VARCHAR}, #{isInclude3,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.cnstock.entity.TbJob" >
+        insert into Tb_job
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="jobId != null" >
+                jobId,
+            </if>
+            <if test="jobName != null" >
+                jobName,
+            </if>
+            <if test="jobUrl != null" >
+                jobUrl,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="jobModel != null" >
+                jobModel,
+            </if>
+            <if test="hashCode != null" >
+                hashCode,
+            </if>
+            <if test="errorCount != null" >
+                errorCount,
+            </if>
+            <if test="isEnable != null" >
+                isEnable,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="droneId != null" >
+                droneId,
+            </if>
+            <if test="jobOwner != null" >
+                jobOwner,
+            </if>
+            <if test="include1 != null" >
+                Include1,
+            </if>
+            <if test="include2 != null" >
+                Include2,
+            </if>
+            <if test="include3 != null" >
+                Include3,
+            </if>
+            <if test="isInclude1 != null" >
+                IsInclude1,
+            </if>
+            <if test="isInclude2 != null" >
+                IsInclude2,
+            </if>
+            <if test="isInclude3 != null" >
+                IsInclude3,
+            </if>
+            <if test="createTime != null" >
+                createTime,
+            </if>
+            <if test="updateTime != null" >
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="jobId != null" >
+                #{jobId,jdbcType=VARCHAR},
+            </if>
+            <if test="jobName != null" >
+                #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobUrl != null" >
+                #{jobUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="jobModel != null" >
+                #{jobModel,jdbcType=VARCHAR},
+            </if>
+            <if test="hashCode != null" >
+                #{hashCode,jdbcType=VARCHAR},
+            </if>
+            <if test="errorCount != null" >
+                #{errorCount,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null" >
+                #{isEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="droneId != null" >
+                #{droneId,jdbcType=VARCHAR},
+            </if>
+            <if test="jobOwner != null" >
+                #{jobOwner,jdbcType=VARCHAR},
+            </if>
+            <if test="include1 != null" >
+                #{include1,jdbcType=VARCHAR},
+            </if>
+            <if test="include2 != null" >
+                #{include2,jdbcType=VARCHAR},
+            </if>
+            <if test="include3 != null" >
+                #{include3,jdbcType=VARCHAR},
+            </if>
+            <if test="isInclude1 != null" >
+                #{isInclude1,jdbcType=VARCHAR},
+            </if>
+            <if test="isInclude2 != null" >
+                #{isInclude2,jdbcType=VARCHAR},
+            </if>
+            <if test="isInclude3 != null" >
+                #{isInclude3,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.cnstock.entity.TbJobExample" resultType="java.lang.Integer" >
+        select count(*) from Tb_job
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update Tb_job
+        <set >
+            <if test="record.jobId != null" >
+                jobId = #{record.jobId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.jobName != null" >
+                jobName = #{record.jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.jobUrl != null" >
+                jobUrl = #{record.jobUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.type != null" >
+                type = #{record.type,jdbcType=VARCHAR},
+            </if>
+            <if test="record.jobModel != null" >
+                jobModel = #{record.jobModel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.hashCode != null" >
+                hashCode = #{record.hashCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.errorCount != null" >
+                errorCount = #{record.errorCount,jdbcType=INTEGER},
+            </if>
+            <if test="record.isEnable != null" >
+                isEnable = #{record.isEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null" >
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.droneId != null" >
+                droneId = #{record.droneId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.jobOwner != null" >
+                jobOwner = #{record.jobOwner,jdbcType=VARCHAR},
+            </if>
+            <if test="record.include1 != null" >
+                Include1 = #{record.include1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.include2 != null" >
+                Include2 = #{record.include2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.include3 != null" >
+                Include3 = #{record.include3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isInclude1 != null" >
+                IsInclude1 = #{record.isInclude1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isInclude2 != null" >
+                IsInclude2 = #{record.isInclude2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isInclude3 != null" >
+                IsInclude3 = #{record.isInclude3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null" >
+                createTime = #{record.createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updateTime != null" >
+                updateTime = #{record.updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update Tb_job
+        set jobId = #{record.jobId,jdbcType=VARCHAR},
+        jobName = #{record.jobName,jdbcType=VARCHAR},
+        jobUrl = #{record.jobUrl,jdbcType=VARCHAR},
+        type = #{record.type,jdbcType=VARCHAR},
+        jobModel = #{record.jobModel,jdbcType=VARCHAR},
+        hashCode = #{record.hashCode,jdbcType=VARCHAR},
+        errorCount = #{record.errorCount,jdbcType=INTEGER},
+        isEnable = #{record.isEnable,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
+        droneId = #{record.droneId,jdbcType=VARCHAR},
+        jobOwner = #{record.jobOwner,jdbcType=VARCHAR},
+        Include1 = #{record.include1,jdbcType=VARCHAR},
+        Include2 = #{record.include2,jdbcType=VARCHAR},
+        Include3 = #{record.include3,jdbcType=VARCHAR},
+        IsInclude1 = #{record.isInclude1,jdbcType=VARCHAR},
+        IsInclude2 = #{record.isInclude2,jdbcType=VARCHAR},
+        IsInclude3 = #{record.isInclude3,jdbcType=VARCHAR},
+        createTime = #{record.createTime,jdbcType=VARCHAR},
+        updateTime = #{record.updateTime,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cnstock.entity.TbJob" >
+        update Tb_job
+        <set >
+            <if test="jobName != null" >
+                jobName = #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobUrl != null" >
+                jobUrl = #{jobUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="jobModel != null" >
+                jobModel = #{jobModel,jdbcType=VARCHAR},
+            </if>
+            <if test="hashCode != null" >
+                hashCode = #{hashCode,jdbcType=VARCHAR},
+            </if>
+            <if test="errorCount != null" >
+                errorCount = #{errorCount,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null" >
+                isEnable = #{isEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="droneId != null" >
+                droneId = #{droneId,jdbcType=VARCHAR},
+            </if>
+            <if test="jobOwner != null" >
+                jobOwner = #{jobOwner,jdbcType=VARCHAR},
+            </if>
+            <if test="include1 != null" >
+                Include1 = #{include1,jdbcType=VARCHAR},
+            </if>
+            <if test="include2 != null" >
+                Include2 = #{include2,jdbcType=VARCHAR},
+            </if>
+            <if test="include3 != null" >
+                Include3 = #{include3,jdbcType=VARCHAR},
+            </if>
+            <if test="isInclude1 != null" >
+                IsInclude1 = #{isInclude1,jdbcType=VARCHAR},
+            </if>
+            <if test="isInclude2 != null" >
+                IsInclude2 = #{isInclude2,jdbcType=VARCHAR},
+            </if>
+            <if test="isInclude3 != null" >
+                IsInclude3 = #{isInclude3,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                createTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                updateTime = #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where jobId = #{jobId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cnstock.entity.TbJob" >
+    update Tb_job
+    set jobName = #{jobName,jdbcType=VARCHAR},
+      jobUrl = #{jobUrl,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      jobModel = #{jobModel,jdbcType=VARCHAR},
+      hashCode = #{hashCode,jdbcType=VARCHAR},
+      errorCount = #{errorCount,jdbcType=INTEGER},
+      isEnable = #{isEnable,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      droneId = #{droneId,jdbcType=VARCHAR},
+      jobOwner = #{jobOwner,jdbcType=VARCHAR},
+      Include1 = #{include1,jdbcType=VARCHAR},
+      Include2 = #{include2,jdbcType=VARCHAR},
+      Include3 = #{include3,jdbcType=VARCHAR},
+      IsInclude1 = #{isInclude1,jdbcType=VARCHAR},
+      IsInclude2 = #{isInclude2,jdbcType=VARCHAR},
+      IsInclude3 = #{isInclude3,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR}
+    where jobId = #{jobId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cnstock.mapper.TbErrorMapper" >
+  <resultMap id="BaseResultMap" type="com.cnstock.entity.TbError" >
+    <id column="errorId" property="errorId" jdbcType="VARCHAR" />
+    <result column="jobId" property="jobId" jdbcType="VARCHAR" />
+    <result column="droneId" property="droneId" jdbcType="VARCHAR" />
+    <result column="errorType" property="errorType" jdbcType="INTEGER" />
+    <result column="errorCount" property="errorCount" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    errorId, jobId, droneId, errorType, errorCount, createTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cnstock.entity.TbErrorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Tb_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectByJobId" resultMap="BaseResultMap" parameterType="com.cnstock.entity.TbErrorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    droneId
+    from Tb_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Tb_error
+    where errorId = #{errorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Tb_error
+    where errorId = #{errorId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cnstock.entity.TbErrorExample" >
+    delete from Tb_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cnstock.entity.TbError" >
+    insert into Tb_error (errorId, jobId, droneId, 
+      errorType, errorCount, createTime
+      )
+    values (#{errorId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, #{droneId,jdbcType=VARCHAR}, 
+      #{errorType,jdbcType=INTEGER}, #{errorCount,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cnstock.entity.TbError" >
+    insert into Tb_error
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="errorId != null" >
+        errorId,
+      </if>
+      <if test="jobId != null" >
+        jobId,
+      </if>
+      <if test="droneId != null" >
+        droneId,
+      </if>
+      <if test="errorType != null" >
+        errorType,
+      </if>
+      <if test="errorCount != null" >
+        errorCount,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="errorId != null" >
+        #{errorId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="droneId != null" >
+        #{droneId,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null" >
+        #{errorType,jdbcType=INTEGER},
+      </if>
+      <if test="errorCount != null" >
+        #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cnstock.entity.TbErrorExample" resultType="java.lang.Integer" >
+    select count(*) from Tb_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Tb_error
+    <set >
+      <if test="record.errorId != null" >
+        errorId = #{record.errorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobId != null" >
+        jobId = #{record.jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.droneId != null" >
+        droneId = #{record.droneId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorType != null" >
+        errorType = #{record.errorType,jdbcType=INTEGER},
+      </if>
+      <if test="record.errorCount != null" >
+        errorCount = #{record.errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Tb_error
+    set errorId = #{record.errorId,jdbcType=VARCHAR},
+      jobId = #{record.jobId,jdbcType=VARCHAR},
+      droneId = #{record.droneId,jdbcType=VARCHAR},
+      errorType = #{record.errorType,jdbcType=INTEGER},
+      errorCount = #{record.errorCount,jdbcType=INTEGER},
+      createTime = #{record.createTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cnstock.entity.TbError" >
+    update Tb_error
+    <set >
+      <if test="jobId != null" >
+        jobId = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="droneId != null" >
+        droneId = #{droneId,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null" >
+        errorType = #{errorType,jdbcType=INTEGER},
+      </if>
+      <if test="errorCount != null" >
+        errorCount = #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where errorId = #{errorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cnstock.entity.TbError" >
+    update Tb_error
+    set jobId = #{jobId,jdbcType=VARCHAR},
+      droneId = #{droneId,jdbcType=VARCHAR},
+      errorType = #{errorType,jdbcType=INTEGER},
+      errorCount = #{errorCount,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=VARCHAR}
+    where errorId = #{errorId,jdbcType=VARCHAR}
+  </update>
+</mapper>

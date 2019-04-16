@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务详情</title>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-primary job-detail">
+            <div class="panel-heading">任务详情</div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">每日数量<small>&nbsp;&nbsp;&nbsp;&nbsp;近十日详情</small></div>
+            <table class="table job-count">
+                <tr>
+                    <th>日期</th>
+                    <th>数量</th>
+                </tr>
+            </table>
+            <div class="text-center count" style="display: none;">暂无记录</div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">log</div>
+            <table class="table job-log">
+                <tr>
+                    <th>创建时间</th>
+                    <th>新连接</th>
+                    <th>连接数</th>
+                    <th>状态</th>
+                </tr>
+            </table>
+            <div class="text-center log" style="display: none;">暂无记录</div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">错误详情</div>
+            <table class="table job-error">
+                <tr>
+                    <th>地址</th>
+                    <th>错误类型</th>
+                    <th>错误次数</th>
+                    <th>创建时间</th>
+                </tr>
+            </table>
+            <div class="text-center jobError" style="display: none;">暂无记录</div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/details.js"></script>
+</html>

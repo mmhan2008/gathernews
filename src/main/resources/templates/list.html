@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<table class="table">
+    <tr>
+        <th>任务名称</th>
+        <th>任务链接</th>
+        <th>解析模板</th>
+        <th>错误数统计</th>
+        <th>开关</th>
+        <th>当天任务分配</th>
+        <th>标识</th>
+        <th>创建时间</th>
+    </tr>
+    <tr th:each="info:${jobs}" class="text-left">
+        <td th:text="${info.jobName}"></td>
+        <td th:text="${info.jobUrl}"></td>
+        <td th:text="${info.jobModel}"></td>
+        <td th:text="${info.errorCount}"></td>
+        <td th:text="${info.isEnable}"></td>
+        <td th:text="${info.status}"></td>
+        <td th:text="${info.droneId}"></td>
+        <td th:text="${info.createTime}"></td>
+        <td><a th:href = "${'ruleconf?url='+info.jobUrl+'&name='+ info.jobName}">修改</a></td>
+    </tr>
+</table>
+</html>

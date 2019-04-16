@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理页面</title>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/bootstrap-table.min.css"/>
+    <link href="https://cdn.bootcss.com/jquery-confirm/3.2.3/jquery-confirm.min.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            text-align: center;
+        }
+        h4{
+            display: inline-block;
+            margin-right: 200px;
+        }
+        .add{
+            display: inline-block;
+            margin-right: -300px;
+        }
+        .add a{
+            text-decoration: none;
+        }
+        .container-fluid{
+            padding-right: 30px;
+            padding-left: 30px;
+        }
+        #bootstrapTable  thead{background: #5488c4;}
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <h4>任务列表</h4>
+    <div class="add">
+        <a href="/preview" >添加新任务</a>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <div id="toolbar">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="jobName">任务来源</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">任务来源</div>
+                            <input type="text" class="form-control" id="jobName" placeholder="请输入任务名称或内容关键字...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="jobUrl">任务链接</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">任务链接</div>
+                            <input type="text" class="form-control" id="jobUrl" placeholder="请输入任务链接...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="isEnable">任务开关</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">任务开关</div>
+                            <select class="form-control" id="isEnable">
+                                <option value="">选择任务开关...</option>
+                                <option value="启用">启用</option>
+                                <option value="停用">停用</option>
+                            </select>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label  class="sr-only" for="startData">创建日期：</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">起始时间</div>
+                                <input type="date" id="startData" class="form-control date-input">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label  class="sr-only" for="endData">--</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">结束时间</div>
+                                <input type="date" id="endData" class="form-control">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary queryButton">查询</button>
+                        <button type="button" class="btn btn-primary refreshButton">重置</button>
+                </form>
+            </div>
+            <table id="bootstrapTable"></table>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-table.js"></script>
+<script src="js/bootstrap-table-zh-CN.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/bootstrap-table-export.js"></script>
+<script src="js/tableExport.js"></script>
+<script src="https://cdn.bootcss.com/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>
+<script src="js/admin.js"></script>
+</html>

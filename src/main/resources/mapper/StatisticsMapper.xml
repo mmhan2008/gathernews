@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cnstock.mapper.StatisticsMapper" >
+    <resultMap id="TbJobResultMap" type="com.cnstock.entity.TbJob" >
+        <id column="jobId" property="jobId" jdbcType="VARCHAR" />
+        <result column="jobName" property="jobName" jdbcType="VARCHAR" />
+        <result column="jobUrl" property="jobUrl" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="jobModel" property="jobModel" jdbcType="VARCHAR" />
+        <result column="hashCode" property="hashCode" jdbcType="VARCHAR" />
+        <result column="errorCount" property="errorCount" jdbcType="INTEGER" />
+        <result column="isEnable" property="isEnable" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="droneId" property="droneId" jdbcType="VARCHAR" />
+        <result column="jobOwner" property="jobOwner" jdbcType="VARCHAR" />
+        <result column="Include1" property="include1" jdbcType="VARCHAR" />
+        <result column="Include2" property="include2" jdbcType="VARCHAR" />
+        <result column="Include3" property="include3" jdbcType="VARCHAR" />
+        <result column="IsInclude1" property="isInclude1" jdbcType="VARCHAR" />
+        <result column="IsInclude2" property="isInclude2" jdbcType="VARCHAR" />
+        <result column="IsInclude3" property="isInclude3" jdbcType="VARCHAR" />
+        <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+        <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="jobWithErrorResultMap" type="com.cnstock.entity.TbJob" extends="TbJobResultMap">
+        <association property="tbError" javaType="com.cnstock.entity.TbError" autoMapping="true">
+            <id column="errorId" property="errorId" jdbcType="VARCHAR" />
+            <result column="jobId" property="jobId" jdbcType="VARCHAR" />
+            <result column="droneId" property="droneId" jdbcType="VARCHAR" />
+            <result column="errorType" property="errorType" jdbcType="INTEGER" />
+            <result column="errorCount" property="errorCount" jdbcType="INTEGER" />
+            <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+    <resultMap id="jobWithCountResultMap" type="com.cnstock.entity.TbJob" extends="TbJobResultMap" >
+        <association property="tbJobCount" javaType="com.cnstock.entity.TbJobCount" autoMapping="true">
+            <id column="id" property="id" jdbcType="INTEGER" />
+            <result column="jobId" property="jobId" jdbcType="VARCHAR" />
+            <result column="date" property="date" jdbcType="VARCHAR" />
+            <result column="dateCount" property="dateCount" jdbcType="INTEGER" />
+        </association>
+    </resultMap>
+    <select id="getJobWithError" resultMap="jobWithErrorResultMap" parameterType="com.cnstock.entity.TbJob">
+        select
+            a.jobId as tbJobId, a.jobName, a.jobUrl, a.jobModel, a.hashCode, a.errorCount as jobErrorCount, a.isEnable, a.status, a.droneId as tbJobDroneId,
+            a.jobOwner, a.Include1, a.Include2, a.Include3, a.IsInclude1, a.IsInclude2, a.IsInclude3, a.createTime as tbJobCreateTime,
+            a.updateTime,b.errorId, b.jobId, b.droneId, b.errorType, b.errorCount, b.createTime
+        from Tb_job a right join Tb_error b on a.jobId = b.jobId
+            <where>
+                <if test="jobName != null and jobName != ''">
+                    and jobName like concat('%',#{jobName,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="jobUrl != null and jobUrl != '' ">
+                    and jobUrl like concat('%',#{jobUrl,jdbcType=VARCHAR},'%')
+                </if>
+            </where>
+          group by tbJobId
+          order by a.createTime desc
+    </select>
+
+    <select id="getJobWithCount" resultMap="jobWithCountResultMap" parameterType="com.cnstock.entity.TbJob">
+            select
+            tbJob.jobId, tbJob.jobName, tbJob.jobUrl, tbJob.jobModel,tbJob.errorCount, tbJob.isEnable, tbJob.status,
+            tbJob.jobOwner ,tbJob.createTime,tbJob.updateTime,tbCount.jobId as tbCountId,tbCount.date,tbCount.dateCount
+            from Tb_job as tbJob
+            left join Tb_job_count as tbCount
+            on tbJob.jobId = tbCount.jobId
+            <where>
+                <if test="jobName != null">
+                    and jobName like concat('%',#{jobName,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="jobUrl != null">
+                    and jobUrl like concat('%',#{jobUrl,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="isEnable != null">
+                    and isEnable = #{isEnable,jdbcType=VARCHAR}
+                </if>
+                <if test="startTime != null and endTime == null">
+                    and createTime &gt;= #{startTime,jdbcType=VARCHAR}
+                </if>
+                <if test="endTime != null and startTime == null">
+                    and createTime &lt;= #{endTime,jdbcType=VARCHAR}
+                </if>
+                <if test="startTime != null and endTime != null" >
+                    and createTime between  #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+                </if>
+            </where>
+            group by tbJob.jobId
+            order by tbJob.createTime desc
+    </select>
+</mapper>

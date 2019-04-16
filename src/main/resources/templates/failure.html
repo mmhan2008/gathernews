@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>失败任务</title>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/bootstrap-table.min.css"/>
+    <style type="text/css">
+        body{
+            text-align: center;
+        }
+        h4{
+            display: inline-block;
+            margin-right: 200px;
+        }
+        .add{
+            display: inline-block;
+            margin-right: -300px;
+        }
+        .add a{
+            text-decoration: none;
+        }
+        .container-fluid{
+            padding-right: 30px;
+            padding-left: 30px;
+        }
+
+        #bootstrapTable  thead{background: #5488c4;}
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h4>失败任务列表</h4>
+        <div class="row">
+            <div class="table-responsive">
+                <div id="toolbar">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="jobName">任务来源</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">任务来源</div>
+                                <input type="text" class="form-control" id="jobName" placeholder="请输入任务名称或内容关键字...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="jobUrl">任务链接</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">任务链接</div>
+                                <input type="text" class="form-control" id="jobUrl" placeholder="请输入任务链接...">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary queryButton">查询</button>
+                        <button type="button" class="btn btn-primary refreshButton">重置</button>
+                    </form>
+                </div>
+                <table id="bootstrapTable" ></table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-table.js"></script>
+<script src="js/bootstrap-table-zh-CN.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/bootstrap-table-export.js"></script>
+<script src="js/tableExport.js"></script>
+<script src="js/fail.js"></script>
+</html>
